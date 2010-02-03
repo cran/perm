@@ -62,6 +62,7 @@ function(x, g, exact = NULL, method=NULL, methodRule=methodRuleKS1,
     if (!is.null(chisq)) names(chisq)<-"Chi Square"
     df<-mout$df
     if (!is.null(df)) names(df)<-"df"
+    if (method!="exact.mc") nmc<-NULL 
     OUT <- list(statistic = chisq, parameter=df, estimate=NULL, 
         p.value = as.numeric(PVAL), method = METHOD, 
         data.name = DNAME, p.conf.int=mout$p.conf.int, nmc=nmc)

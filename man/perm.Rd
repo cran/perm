@@ -105,11 +105,16 @@ An object of class \code{htest} or for 'exact.mc' of class \code{mchtest},
 a list with the following elements:
   \item{p.value}{p value associated with alternative}
   \item{alternative}{description of alternative hypothesis}
-  \item{p.values}{a vector giving lower, upper, and two-sided p-values, also p.equal the proportion equal}
-  \item{METHOD}{a character vector describing the test}
+  \item{p.values}{a vector giving lower, upper, and two-sided p-values as well as 
+p.equal which is the proportion equal to the observed test statistic}
+  \item{method}{a character vector describing the test}
+\item{estimate}{an estimate of the test statistic}
+\item{statistic}{statistic used for asymptotics, either Z statistics or chi square statistic, output if method="pclt"}
+\item{parameter}{degrees of freedom for chi square statistic, output if 'statistic' is the chi square statistic}
+\item{data.name}{character vector describing the response and group variables}
   \item{p.conf.int}{a confidence interval on the p-value if method='exact.mc' 
     (see \code{\link{calcPvalsMC}})}
-  \item{nmc}{number of Monte Carlo replications}
+  \item{nmc}{number of Monte Carlo replications if method='exact.mc', NULL otherwise}
 }
 \references{ 
 

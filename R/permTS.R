@@ -77,6 +77,7 @@ function(x, y, alternative = c("two.sided", "less", "greater","two.sidedAbs"),
     estimate<-mean(x)-mean(y)
     names(estimate)<-names(null.value)<-paste("mean of ",xname," minus mean of ",yname,sep="")
     p.conf.int<-mout$p.conf.int
+    if (method!="exact.mc") nmc<-NULL 
     OUT <- list(statistic = Z, estimate=estimate, parameter = NULL, p.value = as.numeric(PVAL), 
         null.value = null.value, alternative = alternative, method = METHOD, 
         data.name = DNAME, p.values=p.values,p.conf.int=p.conf.int, nmc=nmc)

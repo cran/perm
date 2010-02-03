@@ -5,8 +5,10 @@
 ## answer you need to get them exactly equal
 ## You should get the same answer regardless of 
 ## whether you multiply y by a constant
-## Here coin 0.6-7 fails, but perm 0.9.1 succeeds
+## Here both coin 1.0-8 and perm 0.9.1 give the correct answer
+## (earlier versions of coin had problems with this example)
 library(coin)
+packageDescription("coin")$Version
 library(perm)
 y<-c(1.11,2.22,3.33,0,100,1)
 g<-as.factor(c(1,1,0,0,1,0))

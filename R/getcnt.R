@@ -1,5 +1,7 @@
 `getcnt` <-
 function(nodehk,cnt.edge,edgesize){
+    ## to do: perhaps save time by rewriting this function in C
+    ## may speed up exact.network algorithm
     out<-rep(NA,sum(edgesize[nodehk]))
     cnt<-1
     for (i in 1:length(nodehk)){

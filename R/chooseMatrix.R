@@ -1,5 +1,8 @@
 `chooseMatrix` <-
 function(n,m){
+    ## faster computationally if (n-m) > m
+    ## so if it is the other way around then calculate after switching m and (n-m) 
+    ## then at the end change all 0s to 1s and all 1s to 0s
     m.greater<- m>(n-m)
     if (m.greater) m<- (n-m) 
     n.ch.m<-choose(n,m)
@@ -26,6 +29,7 @@ function(n,m){
             cm[i,]<-next.row(cm[i-1,])
         }
     }
+    ## if switched m and (n-m) change all 0s to 1s and all 1s to 0s
     if (m.greater) cm<- 1-cm
     cm
 }

@@ -6,7 +6,15 @@ function(scores,group){
     tab<-table(group,scores)
     m<-sum(tab[2,])
     n<-length(scores)
-    Grp1<-as.numeric(dimnames(tab)[[1]][2])
+    ## note that twosample.pclt is not called directly, but from within permTS
+    ## so we know that the first group has group=1 and the second has group=0
+    ##
+    ## we add the following in case 
+    ## it is called directly, then it gives a correct answer even if group is 
+    ## defined with characters
+    ## note "1"==1 is TRUE
+    ## (note it even works if group is continuous numeric since if y<-rnorm(1), then as.character(y)==y is TRUE)
+    Grp1<-dimnames(tab)[[1]][2]
     grp<-rep(0,n)
     grp[group==Grp1]<-1
     T0<-sum( scores*grp) 
@@ -29,19 +37,24 @@ function(scores,group,digits=12){
     tab<-table(group,scores)
     M<-tab[2,]
     y<-tab[1,]
+    ## T is a vector of totals for each unique score
     T<-M+y
+    ## V is a matching vector of the values of those unique scores
     V<-as.numeric(dimnames(tab)[[2]])
+    ## test statistic is sum of scores in one group
+    ## an equivalent test statistic (i.e., gives same p-values) 
+    ## is the difference in group means of the scores
     T0<- sum( V*M )
     k<-length(M)
     m<-sum(M)
     n<-sum(T)-m
     N<-sum(T)
-    Nodes<-c("0,0")
-    stage<-0
+    ## for notation and terminology see agresti, mehta, and patel (1990, JASA, 453-458)
     wj<-0
+    ## create vectors too big on purpose, growing vectors takes more time
     stage<-Wj<-rep(NA,k*N)
-    cnt<-2
     stage[1]<-Wj[1]<-0
+    cnt<-2
     ## first go through and define all nodes
     for (j in 0:(k-1)){
         temp.wj<-min(pmax(wj,m-N+sum(T[1:(j+1)]))):
@@ -52,8 +65,7 @@ function(scores,group,digits=12){
         wj<-temp.wj
         cnt<-cnt+n.wj
     }
-#print(stage[!is.na(stage)])
-#print(Wj[!is.na(Wj)])
+    ## not delete parts of stage and Wj not used
     stage<-stage[!is.na(stage)]
     Wj<-Wj[!is.na(Wj)]
     nNodes<-length(stage)
@@ -88,6 +100,8 @@ function(scores,group,digits=12){
         Chk<-probL[cnt.stage[1]:(cnt.stage[2]-1)]
         nodehk<-Edges[cnt.stage[1]:(cnt.stage[2]-1)]
         for (i in 2:k){
+            ## most of the time that this function takes comes from the getcnt function
+            ## to do: move that function to C code, or speed it up some other way
             CNT<-getcnt(nodehk,cnt.edge,edgesize)
             newthk<-rep(thk,times=edgesize[nodehk]) + 
                 rankL[CNT]
@@ -131,18 +145,17 @@ function(scores,group,cm=NULL,digits=12){
     out<-calcPvals(Tj,T0,digits)
     out
 }
-
 calcPvals<-function(Tj,T0,digits,denom=NULL,wgts=NULL,twosidedTstat=FALSE){
-    if (is.null(denom)) denom<-length(Tj)
-    if (is.null(wgts)) wgts<-rep(1,denom)
+    if (is.null(denom)) nTj<-length(Tj)
+    if (is.null(wgts)) wgts<-rep(1,nTj)
     ## subtract off mean, needed only for p.twosidedAbs
-    mu<-mean(Tj)
+    denom<-sum(wgts)
+    mu<-sum(wgts*Tj)/denom
     Tj<-Tj-mu
     T0<-T0-mu
     ## to avoid problems with computer rounding error
     Tj<-signif(Tj,digits)
     T0<-signif(T0,digits)
-
     if (twosidedTstat){
         p.values<-c(p.twosided=sum(wgts[Tj>=T0])/denom,
                   p.equal=sum(wgts[Tj==T0])/denom)
@@ -157,7 +170,6 @@ calcPvals<-function(Tj,T0,digits,denom=NULL,wgts=NULL,twosidedTstat=FALSE){
    out<-list(p.values=p.values)
    out
 }
-
 calcPvalsMC<-function(Tj,T0,digits,alternative=NULL,twosidedTstat=FALSE,p.conf.level=.99){
     N<-length(Tj)
     wgts<-rep(1,N)
@@ -173,6 +185,8 @@ calcPvalsMC<-function(Tj,T0,digits,alternative=NULL,twosidedTstat=FALSE,p.conf.l
     S.gte <- sum(wgts[Tj >= T0])
     S.abs <- sum(wgts[abs(Tj) >= abs(T0)])
   
+    ## always count the observed value, this ensures valid p-values 
+    ## see Fay, Kim and Hachey, 2007, JCGS, 946-967, eq 5.3
     p.lte <- (S.lte + 1)/(N + 1)
     p.gte <- (S.gte + 1)/(N + 1)
     p.equal<-  (length((1:N)[Tj == T0])+1)/(N+1)

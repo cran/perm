@@ -1,0 +1,15 @@
+
+		CHANGES in `perm' VERSION 0.9-9.5
+
+    o    fixed bug in calcPvals when wgts not equal to 1
+         (i.e., when using network algorithm). This only
+         effects the alternative="twosidedAbs" option.
+
+    o    added more comments to R code
+    
+    o    changed twosample.pclt so it works with character variables for group
+
+    o
+
+
+    

@@ -3,6 +3,7 @@ function(x,group,exact, Nbound=c(1000,200,100,50,16)){
     ug<-sort(unique(group))
     if (length(ug)!=2) stop("method rule function works for two groups only")
 
+    ## use a different Nbound depending on the size of the minimum of the sample size of the two groups
     below.bound<-function(x,Nbound){
         n<-length(x)
         kmin<-min(length(unique(x[group==ug[1]])),length(unique(x[group==ug[2]])))

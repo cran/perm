@@ -13,7 +13,7 @@ Date: \tab 2009-04-01\cr
 License: \tab GPL \cr
 }
 The package has three main functions, to perform linear permutation tests. 
-These tests are tests where the test statistic is the sum of a covariate (usually group indicator) and the 
+These tests are tests where the test statistic is the sum of the product of a covariate (usually group indicator) and the 
 scores. The three tests are: \code{\link{permTS}} to perform two sample permutation tests,
 \code{\link{permKS}} to perform K-sample permutation tests,
 \code{\link{permTREND}} to perform trend permutation tests on numeric values.
