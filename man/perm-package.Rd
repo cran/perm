@@ -8,8 +8,8 @@ This package gives several methods for performing permutation tests.}
 \tabular{ll}{
 Package: \tab perm\cr
 Type: \tab Package\cr
-Version: \tab 0.9-1.3\cr
-Date: \tab 2009-04-01\cr
+Version: \tab 1.0-0.0\cr
+Date: \tab 2010-07-29\cr
 License: \tab GPL \cr
 }
 The package has three main functions, to perform linear permutation tests. 
@@ -24,13 +24,19 @@ exact (network algorithm, complete enumeration, or Monte Carlo) or asymptotic ca
 central limit theorem [pclt]), while the other tests use only the exact Monte Carlo or the pclt.  
 Most (if not all) of the tests here are also implemented in the \code{coin} package. 
 This package provides an independent validation of that package. 
+
+The \code{perm} package used by the \code{interval} package, and \code{perm} is described in Fay and Shaw (2010, Section 5).
 }
 \author{
 Michael Fay
 
 Maintainer: Michael Fay <mfay@niaid.nih.gov>
 }
-%\references{}
+\references{
+    Fay, MP and Shaw, PA (2010). Exact and Asymptotic Weighted Logrank Tests for Interval Censored Data: The interval R package.
+    Journal of Statistical Software. \url{http://www.jstatsoft.org/v36/i02/}. 36 (2):1-34.
+
+}
 %~~ Optionally other standard keywords, one per line, from file ~~
 %~~ KEYWORDS in the R documentation directory ~~
 \keyword{ package }

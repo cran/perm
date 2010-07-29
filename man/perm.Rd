@@ -29,7 +29,7 @@ central limit theorem).
 \usage{
 permTS(x, \dots)
 
-\method{permTS}{default}(x, y, alternative = c("two.sided", "less", "greater" ,"two.sidedAbs"), 
+\method{permTS}{default}(x, y, alternative = c("two.sided", "less", "greater"), 
     exact = NULL, method = NULL, methodRule = methodRuleTS1, 
     control=permControl(), \dots)
 
@@ -45,7 +45,7 @@ permKS(x,\dots)
 
 permTREND(x,\dots)
 
-\method{permTREND}{default}(x, y, alternative = c("two.sided", "less", "greater","two.sidedAbs"), exact = NULL, method = NULL, methodRule = methodRuleTREND1, control=permControl(),...)
+\method{permTREND}{default}(x, y, alternative = c("two.sided", "less", "greater"), exact = NULL, method = NULL, methodRule = methodRuleTREND1, control=permControl(),...)
 
 \method{permTREND}{formula}(formula,data,subset,na.action,\dots)
 }
@@ -55,7 +55,7 @@ permTREND(x,\dots)
 or trend scores for each observation (for permTREND)}
 \item{g}{a factor or character vector denoting group membership}
   \item{alternative}{a character string specifying the alternative hypothesis, must be one of "two.sided"
-(default), "greater","less", or "two.sidedAbs" (see details)}
+(default), "greater","less" (see details)}
 \item{exact}{a logical value, TRUE denotes exact test, ignored if method is not NULL}
 \item{method}{a character value, one of 'pclt','exact.network','exact.ce','exact.mc'. If NULL method chosen by methodRule}
 \item{methodRule}{a function used to choose the method (see details)}
@@ -70,11 +70,12 @@ getOption("na.action"). }
 }
 \details{
 
-For the alternative there are 4 choices, which determine the p-value by defining which 
-test statistics are extreme. If Ti is a vector of test statistics, and T0 is the observed test statistic, then 
-alternative="less" gives p.lte=Pr[Ti<=T0], "greater" gives p.gte=Pr[Ti>=T0], 
-"two.sided" gives p.twosided=max(1, 2*min(p.lte,p.gte)), and 
-"two.sidedAbs" gives p.twosidedAbs=Pr[abs(Ti - mean(Ti) ) >=abs(T0-mean(Ti))]. For \code{permTS} the test statistic 
+There are 4 different methods for deciding how to determine the p-value by defining which test statistics are extreme.
+For \code{alternative} there are 3 choices, "two.sided", "less" or "greater", but within alternative="two.sided" there are 2 methods defined by the 
+\code{tsmethod} given within \code{control}, see \code{\link{permControl}}.   If Ti is a vector of test statistics, and T0 is the observed test statistic, then 
+alternative="less" gives p.lte=Pr[Ti<=T0], alternative="greater" gives p.gte=Pr[Ti>=T0], 
+alternative="two.sided" with tsmethod="central" (default) gives p.twosided=max(1, 2*min(p.lte,p.gte)), and alternative="two.sided"
+with tsmethod="abs" gives p.twosidedAbs=Pr[abs(Ti - mean(Ti) ) >=abs(T0-mean(Ti))]. For \code{permTS} the test statistic 
 is equivalent to the mean of one group minus the mean of the other group. For \code{permTREND} the test 
 statistic is equivalent to the correlation between the response (x) and the trend scores (y).
 For \code{permKS} only a twosided pvalue based on Pr[Ti>=T0] is allowed, where the test statistic, Ti, is the 
@@ -99,6 +100,8 @@ The \code{methodRule} is a function which takes the first two objects of the def
 method. This function can be used to appropriately choose the method based on the size of the data.
 For explanation of the default method rules see \code{\link{methodRuleTS1}}, \code{\link{methodRuleKS1}}, or 
 \code{\link{methodRuleTREND1}}. 
+
+For more details see Fay and Shaw (2010, Section 5).
 }
 \value{
 An object of class \code{htest} or for 'exact.mc' of class \code{mchtest}, 
@@ -119,6 +122,9 @@ p.equal which is the proportion equal to the observed test statistic}
 \references{ 
 
 Agresti, A, Mehta, CR, Patel, NR (1990). JASA 85: 453-458.
+
+    Fay, MP and Shaw, PA (2010). Exact and Asymptotic Weighted Logrank Tests for Interval Censored Data: The interval R package.
+    Journal of Statistical Software. \url{http://www.jstatsoft.org/v36/i02/}. 36 (2):1-34.
 
 Graubard, BI, and Korn, EL (1987). Biometrics 43: 471-476.
 

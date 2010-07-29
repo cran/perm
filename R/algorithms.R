@@ -163,6 +163,8 @@ calcPvals<-function(Tj,T0,digits,denom=NULL,wgts=NULL,twosidedTstat=FALSE){
         p.lte<-sum(wgts[Tj<=T0])/denom
         p.gte<-sum(wgts[Tj>=T0])/denom
         p.equal<-sum(wgts[Tj==T0])/denom
+        ## p.twosidedAbs is alternative="two.sided" with control=permControl(tsmethod="abs")
+        ## p.twosided is alternative="two.sided" with control=permControl(tsmethod="central")
         p.twosidedAbs<-sum(wgts[abs(Tj)>=abs(T0)])/denom
         p.values<-c(p.twosided=min(1,2*min(p.lte,p.gte)),p.twosidedAbs=p.twosidedAbs,
             p.lte=p.lte,p.gte=p.gte,p.equal=p.equal)

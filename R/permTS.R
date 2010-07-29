@@ -29,11 +29,11 @@ function(formula, data, subset, na.action, ...){
     out$data.name <- DNAME
     glevels<-levels(g)
     
-    names(out$null.value)<-names(out$estimate)<-paste("mean of ",groupname,"=",glevels[1]," minus mean of ",groupname,"=",glevels[2],sep="")
+    names(out$null.value)<-names(out$estimate)<-paste("mean ",groupname,"=",glevels[1]," - mean ",groupname,"=",glevels[2],sep="")
     out
 }
 `permTS.default` <-
-function(x, y, alternative = c("two.sided", "less", "greater","two.sidedAbs"), 
+function(x, y, alternative = c("two.sided", "less", "greater"), 
     exact = NULL, method=NULL, methodRule=methodRuleTS1, control=permControl(),...){
     
     cm<-control$cm
@@ -42,14 +42,34 @@ function(x, y, alternative = c("two.sided", "less", "greater","two.sidedAbs"),
     digits<-control$digits
     p.conf.level<-control$p.conf.level
     setSEED<-control$setSEED
+    tsmethod<-control$tsmethod
 
+
+    ## program originally written so that tsmethod="abs" was 
+    ## alternative="two.sidedAbs", changed to avoid confusion with coin package
+    if (alternative[1]=="two.sidedAbs"){
+        warning("alternative='two.sidedAbs' may be deprecated in the future,
+            use alternative='two.sided' and control=permControl(tsmethod='abs'))")
+        alternative<-"two.sided"
+        tsmethod<-"abs"
+    }
+    alternative <- match.arg(alternative)
+
+    if (!(tsmethod=="central" | tsmethod=="abs") & alternative=="two.sided"){
+        stop("only tsmethod='central' and tsmethod='abs' allowed")
+    }
+    if (tsmethod=="abs" & alternative=="two.sided"){
+        alternative<-"two.sidedAbs"
+    } else if (tsmethod=="central" & alternative=="two.sided"){
+        alternative<-"two.sided"
+    }		
+																																																																																																																																																																																																																																																																																																																																																																																																																										
     if (!is.numeric(x) | !is.numeric(y) | !is.vector(x) | !is.vector(y) ) stop("x and y must be numeric vectors")
 
     W<-c(x,y)
     Z<-c(rep(1,length(x)),rep(0,length(y)))
     
     if (is.null(method))    method<-methodRule(W,Z,exact)
-    alternative <- match.arg(alternative)
     method.OK<-(method=="pclt" | method=="exact.mc" | method=="exact.network" | method=="exact.ce")
     if (!method.OK) stop("method not one of: 'pclt', 'exact.mc'. 'exact.network', 'exact.ce'")
     mout<-switch(method,
@@ -64,18 +84,20 @@ function(x, y, alternative = c("two.sided", "less", "greater","two.sidedAbs"),
     else if (method=="pclt") METHOD<-"Permutation Test using Asymptotic Approximation"
     else if (method=="exact.mc") METHOD<-"Exact Permutation Test Estimated by Monte Carlo"
     else if (method=="exact.ce") METHOD<-"Exact Permutation Test (complete enumeration)"
+    m<-match.call()
     xname<-deparse(substitute(x))
     yname<-deparse(substitute(y))
-    if (length(xname)>1) xname<-c("x")
-    if (length(yname)>1) yname<-c("y")
-   
-     DNAME <- paste(xname, "and", yname)
+    #xname<-as.character(m$x)
+    #yname<-as.character(m$y)
+    if (length(xname)>1 || nchar(xname)>10) xname<-c("GROUP 1")
+    if (length(yname)>1 || nchar(yname)>10) yname<-c("GROUP 2")
+    DNAME <- paste(xname, "and", yname)
     Z<-mout$Z
     if (!is.null(Z)) names(Z)<-"Z"
    
     null.value<-0
     estimate<-mean(x)-mean(y)
-    names(estimate)<-names(null.value)<-paste("mean of ",xname," minus mean of ",yname,sep="")
+    names(estimate)<-names(null.value)<-paste("mean",xname,"- mean",yname)
     p.conf.int<-mout$p.conf.int
     if (method!="exact.mc") nmc<-NULL 
     OUT <- list(statistic = Z, estimate=estimate, parameter = NULL, p.value = as.numeric(PVAL), 

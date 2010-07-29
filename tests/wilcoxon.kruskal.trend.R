@@ -19,11 +19,11 @@ wilcox.test(y~g,correct=FALSE)
 permTS(rank(y)~g,method="exact.ce",alternative="two.sided")
 permTS(rank(y)~g,method="exact.network",alternative="two.sided")
 
-permTS(rank(y)~g,method="exact.ce",alternative="two.sidedAbs")
-permTS(rank(y)~g,method="exact.network",alternative="two.sidedAbs")
+permTS(rank(y)~g,method="exact.ce",alternative="two.sided", control=permControl(tsmethod="abs"))
+permTS(rank(y)~g,method="exact.network",alternative="two.sided",control=permControl(tsmethod="abs"))
 
 ## Note that coin uses the default two.sided p-value that matches our 
-## alternative="two.sidedAbs"
+## alternative="two.sided" with permControl(tsmethod="abs"), but the default is permControl(tsmethod="central")
 ## need to use coin because wilcox.test exact=TRUE does not handle ties
 wilcox_test(y~g,distribution=exact())
 

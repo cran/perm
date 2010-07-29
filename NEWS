@@ -1,4 +1,18 @@
 
+		CHANGES in `perm' VERSION 1.0-0.0
+
+    o    fixed so permTREND gave no warnings: had if (alternative=="two.sidedAbs) which gave warning with default alternative vector.
+
+    o    changed alternative="two.sidedAbs" to be called by alternative="two.sided"
+         together with control=permControl(tsmethod="abs"). This is to avoid confusion
+         with the coin package. The previous version alternative="two.sided" uses 
+         tsmethod="central" in the control. Changed help to reflect those changes.
+
+    o    fixed bug with tsmethod="abs" (previous version alternative="two.sidedAbs")
+         in permTREND.
+       
+    o    fixed printout from permTREND so not too long names for data.name.
+ 
 		CHANGES in `perm' VERSION 0.9-9.5
 
     o    fixed bug in calcPvals when wgts not equal to 1
