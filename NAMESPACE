@@ -19,6 +19,10 @@ export(chooseMatrix,
     calcPvalsMC,
     pCI)
 
+
+importFrom("stats", "cor", "pchisq", "pnorm", "qbeta", "terms")
+
+
 S3method(print, mchtest)
 S3method(permTS, formula)
 S3method(permTS, default)

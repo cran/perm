@@ -1,4 +1,10 @@
 
+		CHANGES in `perm' VERSION 1.0-0.2
+    o    added more text to help about the sample size limitation of some of the exact methods. 
+    o    changed weblinks in some citations. For example, for Fay and Shaw (2010) Journal of Statistical Software use DOI instead of old website (requested by JSS).
+
+
+
 		CHANGES in `perm' VERSION 1.0-0.0
 
     o    fixed so permTREND gave no warnings: had if (alternative=="two.sidedAbs) which gave warning with default alternative vector.

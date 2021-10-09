@@ -15,12 +15,15 @@ These functions are where the algorithms are done. There is much room for improv
 exact functions. 
 }
 \usage{
-ksample.exact.mc(scores, group, nmc = 10^4 - 1, seed = 1234321, digits = 12, p.conf.level = 0.99, setSEED = TRUE)
+ksample.exact.mc(scores, group, nmc = 10^4 - 1, seed = 1234321, 
+  digits = 12, p.conf.level = 0.99, setSEED = TRUE)
 ksample.pclt(scores, group)
-trend.exact.mc(scores, group, alternative = "two.sided", nmc = 10^3 - 1, seed = 1234321, digits = 12, p.conf.level = 0.99, setSEED = TRUE)
+trend.exact.mc(scores, group, alternative = "two.sided", nmc = 10^3 - 1, 
+  seed = 1234321, digits = 12, p.conf.level = 0.99, setSEED = TRUE)
 trend.pclt(scores, group)
 twosample.exact.ce(scores, group, cm = NULL, digits = 12)
-twosample.exact.mc(scores, group, alternative = "two.sided", nmc = 10^4 - 1, seed = 1234321, digits = 12, p.conf.level = 0.99, setSEED = TRUE)
+twosample.exact.mc(scores, group, alternative = "two.sided", nmc = 10^4 - 1, 
+  seed = 1234321, digits = 12, p.conf.level = 0.99, setSEED = TRUE)
 twosample.pclt(scores, group)
 
 twosample.exact.network(scores, group, digits = 12)

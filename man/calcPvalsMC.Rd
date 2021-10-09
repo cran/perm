@@ -39,7 +39,7 @@ pCI(S, N, p.conf.level = 0.99)
 \references{Fay, MP, Kim, H-J, Hachey, M (2007). 
 Journal of Computational and Graphical Statistics.
 16:946-957. Available at
-\url{http://www3.niaid.nih.gov/about/organization/dcr/BRB/staff/michael.htm}
+\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2467508/}
 }
 %\author{ ~~who you are~~ }
 %\note{ ~~further notes~~ }

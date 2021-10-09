@@ -8,8 +8,8 @@ This package gives several methods for performing permutation tests.}
 \tabular{ll}{
 Package: \tab perm\cr
 Type: \tab Package\cr
-Version: \tab 1.0-0.0\cr
-Date: \tab 2010-07-29\cr
+Version: \tab 1.0-0.2\cr
+Date: \tab 2021-10-08\cr
 License: \tab GPL \cr
 }
 The package has three main functions, to perform linear permutation tests. 
@@ -34,7 +34,7 @@ Maintainer: Michael Fay <mfay@niaid.nih.gov>
 }
 \references{
     Fay, MP and Shaw, PA (2010). Exact and Asymptotic Weighted Logrank Tests for Interval Censored Data: The interval R package.
-    Journal of Statistical Software. \url{http://www.jstatsoft.org/v36/i02/}. 36 (2):1-34.
+    Journal of Statistical Software. \doi{10.18637/jss.v036.i02}. 36 (2):1-34.
 
 }
 %~~ Optionally other standard keywords, one per line, from file ~~

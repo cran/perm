@@ -39,13 +39,15 @@ permTS(x, \dots)
 permKS(x,\dots)
 
 
-\method{permKS}{default}(x, g, exact = NULL, method = NULL, methodRule = methodRuleKS1, control=permControl(), ...)
+\method{permKS}{default}(x, g, exact = NULL, method = NULL, 
+   methodRule = methodRuleKS1, control=permControl(), ...)
 
 \method{permKS}{formula}(formula,data,subset, na.action,\dots)
 
 permTREND(x,\dots)
 
-\method{permTREND}{default}(x, y, alternative = c("two.sided", "less", "greater"), exact = NULL, method = NULL, methodRule = methodRuleTREND1, control=permControl(),...)
+\method{permTREND}{default}(x, y, alternative = c("two.sided", "less", "greater"), 
+   exact = NULL, method = NULL, methodRule = methodRuleTREND1, control=permControl(),...)
 
 \method{permTREND}{formula}(formula,data,subset,na.action,\dots)
 }
@@ -85,13 +87,17 @@ give for example, the usual Kruskal-Wallis test when the ranks are used on the r
 Many standard statistical tests may be put into the form of the permutation test (see Graubard and Korn, 1987). 
 There is a choice of four different methods to calculate the p-values (the last two are only available for 
 \code{permTS}): 
-(1) pclt: using permutational central limit theorem (see e.g., Sen, 1985).
-(2) exact.mc:exact using Monte Carlo.
-(3) exact.network: exact method using a network algorithm (see e.g., Agresti, Mehta, and Patel, 1990). Currently the network 
+\enumerate{
+\item pclt: using permutational central limit theorem (see e.g., Sen, 1985).
+\item exact.mc:exact using Monte Carlo.
+\item exact.network: exact method using a network algorithm (see e.g., Agresti, Mehta, and Patel, 1990). Currently the network 
 method does 
 not implement many of the time saving suggestions such as clubbing.
-(4) exact.ce: exact using complete enumeration. This is good for very small sample sizes and when doing simulations, since the cm need only 
+\item exact.ce: exact using complete enumeration. This is good for very small sample sizes and when doing simulations, since the cm need only 
 be calculated once for the simulation.
+}
+The \code{exact.network} and \code{exact.ce} may give errors related to running out of memory when the sample size is not small and will depend on the system you are using (e.g., about 15 in each group for \code{exact.network} or 
+14 in each group for \code{exact.ce}).
 
 These associated functions for the above methods (e.g.,  \code{twosample.pclt}, \code{twosample.exact.network}, etc),  
 are internal and are not to be called directly. 
@@ -124,7 +130,7 @@ p.equal which is the proportion equal to the observed test statistic}
 Agresti, A, Mehta, CR, Patel, NR (1990). JASA 85: 453-458.
 
     Fay, MP and Shaw, PA (2010). Exact and Asymptotic Weighted Logrank Tests for Interval Censored Data: The interval R package.
-    Journal of Statistical Software. \url{http://www.jstatsoft.org/v36/i02/}. 36 (2):1-34.
+    Journal of Statistical Software. \doi{10.18637/jss.v036.i02}. 36 (2):1-34.
 
 Graubard, BI, and Korn, EL (1987). Biometrics 43: 471-476.
 
