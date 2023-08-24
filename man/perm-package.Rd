@@ -1,17 +1,11 @@
 \name{perm-package}
 \alias{perm}
+\alias{perm-package}
 \docType{package}
 \title{Exact or Asymptotic linear permutation tests}
 \description{
 This package gives several methods for performing permutation tests.}
 \details{
-\tabular{ll}{
-Package: \tab perm\cr
-Type: \tab Package\cr
-Version: \tab 1.0-0.2\cr
-Date: \tab 2021-10-08\cr
-License: \tab GPL \cr
-}
 The package has three main functions, to perform linear permutation tests. 
 These tests are tests where the test statistic is the sum of the product of a covariate (usually group indicator) and the 
 scores. The three tests are: \code{\link{permTS}} to perform two sample permutation tests,

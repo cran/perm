@@ -14,7 +14,7 @@
     if (!is.logical(setSEED)){
         stop(" setSEED must be logical")
     }
-    if (!(class(tsmethod)=="character" & (tsmethod=="central" | tsmethod=="abs"))){
+    if (!(inherits(tsmethod,what="character") & (tsmethod=="central" | tsmethod=="abs"))){
         stop(" tsmethod must be 'central' or 'abs' ")
     }
     list(cm=cm,nmc=nmc,seed=seed,digits=digits,
